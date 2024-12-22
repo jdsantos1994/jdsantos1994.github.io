@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Missing & Extras</title>
+    <!-- Favicon -->
+    <link href="./assets/img/brand/favicon.png" rel="icon" type="image/png" />
+    <!-- Fonts   -->
+    <link href="./assets/fonts/css.css" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="./assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link
+      href="./assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- CSS Files -->
+    <link href="./assets/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  </head>
+  <style>
+    /* Estilo compacto para tarjetas */
+    .card {
+      margin-bottom: 10px; /* Espaciado entre tarjetas */
+      border-radius: 10px;
+      border: 1px solid #dee2e6; /* Borde ligero */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    }
+    .card-header {
+      background-color: #f8f9fa; /* Fondo claro */
+      padding: 10px 15px; /* Espaciado más compacto */
+      font-size: 14px; /* Texto más pequeño */
+    }
+    .btn-link {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+    .btn-link:hover {
+      text-decoration: underline;
+    }
+    .list-group-item {
+      padding: 5px 10px; /* Compactar el contenido de las listas */
+      font-size: 12px;
+    }
+  </style>
+  <script>
+    let arr_missing
+    let arr_extras
+
+    var datos_almacenados = JSON.parse(localStorage.getItem('datos_user'))
+    if (
+      datos_almacenados == null ||
+      datos_almacenados == undefined ||
+      datos_almacenados === ''
+    ) {
+      location.href = './examples/login.html'
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Función que se ejecutará cuando la página se haya cargado completamente
+      get_missing()
+      get_extras()
+    })
+  </script>
+
+  <body id="web" class="">
+    <nav
+      class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white"
+      id="sidenav-main"
+    >
+      <div class="container-fluid">
+        <!-- Toggler -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#sidenav-collapse-main"
+          aria-controls="sidenav-main"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Brand -->
+        <a class="navbar-brand pt-0" href="./index.html">
+          <img
+            src="./assets/img/brand/blue.png"
+            class="navbar-brand-img"
+            alt="..."
+          />
+        </a>
+        <!-- User -->
+        <ul class="nav align-items-center d-md-none">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link"
+              href="#"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img
+                    alt="Image placeholder"
+                    src="./assets/img/theme/team-4-800x800.jpg"
+                  />
+                </span>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+              <div class="dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Welcome!</h6>
+              </div>
+
+              <div class="dropdown-divider"></div>
+              <a href="./examples/logout.html" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Collapse header -->
+          <div class="navbar-collapse-header d-md-none">
+            <div class="row">
+              <div class="col-6 collapse-brand">
+                <a href="./index.html">
+                  <img src="./assets/img/brand/blue.png" />
+                </a>
+              </div>
+              <div class="col-6 collapse-close">
+                <button
+                  type="button"
+                  class="navbar-toggler"
+                  data-toggle="collapse"
+                  data-target="#sidenav-collapse-main"
+                  aria-controls="sidenav-main"
+                  aria-expanded="false"
+                  aria-label="Toggle sidenav"
+                >
+                  <span></span>
+                  <span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation -->
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link active" href="./index.html">
+                <i class="ni ni-tv-2 text-primary"></i> Dashboard
+              </a>
+            </li>
+
+            <li class="nav-item ">
+              <a class="nav-link  " href="./examples/Productos.html">
+                <i class="fa fa-link  text-info"></i> Productos
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link  " href="./examples/Match.html">
+                <i class="fas fa-chart-bar text-red"></i> Match
+              </a>
+            </li>
+
+          </ul>
+          <!-- Divider -->
+          <hr class="my-3" />
+        </div>
+      </div>
+    </nav>
+    <div class="main-content">
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-top navbar-expand-md navbar-dark"
+        id="navbar-main"
+      >
+        <div class="container-fluid">
+          <!-- Brand -->
+          <a
+            class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
+            href="./index.html"
+            >Dashboard</a
+          >
+
+          <!-- User -->
+          <ul class="navbar-nav align-items-center d-none d-md-flex">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link pr-0"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <div class="media align-items-center">
+                  <span class="avatar avatar-sm rounded-circle">
+                    <img
+                      alt="Image placeholder"
+                      src="./assets/img/theme/team-4-800x800.jpg"
+                    />
+                  </span>
+                  <div class="media-body ml-2 d-none d-lg-block">
+                    <span id="user_name" class="mb-0 text-sm font-weight-bold"
+                      >Station</span
+                    >
+                  </div>
+                </div>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
+              >
+                <div class="dropdown-header noti-title">
+                  <h6 class="text-overflow m-0">Welcome!</h6>
+                </div>
+
+                <div class="dropdown-divider"></div>
+                <a href="./examples/logout.html" class="dropdown-item">
+                  <i class="ni ni-user-run"></i>
+                  <span>Logout</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <!-- Header -->
+      <div class="header bg-gradient-primary pb-4 pt-5 pt-md-7">
+        <div class="container-fluid">
+          <div class="header-body">
+            <!-- Card stats -->
+            <div class="row justify-content-around">
+              <div class="col-xl-5 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">
+                          Missing
+                        </h5>
+                        <span id="missing" class="h2 font-weight-bold mb-0">
+                          0</span
+                        >
+                      </div>
+                      <div class="col-auto">
+                        <div
+                          class="icon icon-shape bg-danger text-white rounded-circle shadow"
+                        >
+                          <i class="fas fa-minus-circle"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-5 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">
+                          Extras
+                        </h5>
+                        <span id="extras" class="h2 font-weight-bold mb-0"
+                          >0</span
+                        >
+                      </div>
+                      <div class="col-auto">
+                        <div
+                          class="icon icon-shape bg-warning text-white rounded-circle shadow"
+                        >
+                          <i class="fas fa-plus-circle"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-wrapper">
+        <ul
+          class="nav nav-pills nav-fill flex-column flex-md-row"
+          id="tabs-icons-text"
+          role="tablist"
+        >
+          <li class="nav-item">
+            <a
+              onclick="get_missing(statusValue = 'Pendiente')"
+              class="nav-link mb-sm-3 mb-md-0 active"
+              id="tabs-icons-text-1-tab"
+              data-toggle="tab"
+              href="#tabs-icons-text-1"
+              role="tab"
+              aria-controls="tabs-icons-text-1"
+              aria-selected="true"
+              ><i class="fas fa-minus-circle mr-2"></i>Misssing</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              onclick="get_extras(statusValue = 'Pendiente')"
+              class="nav-link mb-sm-3 mb-md-0"
+              id="tabs-icons-text-2-tab"
+              data-toggle="tab"
+              href="#tabs-icons-text-2"
+              role="tab"
+              aria-controls="tabs-icons-text-2"
+              aria-selected="false"
+              ><i class="fas fa-plus-circle mr-2"></i>Extras</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="card shadow">
+        <div class="card-body">
+          <div class="tab-content" id="myTabContent">
+            <div
+              class="tab-pane fade show active"
+              id="tabs-icons-text-1"
+              role="tabpanel"
+              aria-labelledby="tabs-icons-text-1-tab"
+            >
+              <div class="row mx-0 mt-3">
+                <div class="col-xl-12 mb-5 mb-xl-0">
+                  <div class="card shadow">
+                    <div class="card-header border-1">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <h3 class="mb-0">Tus missing</h3>
+                        </div>
+                        <div class="col text-right">
+                          <a
+                            href="#!"
+                            onclick=""
+                            class="btn btn-sm btn-primary"
+                            data-toggle="modal"
+                            data-target="#missingModal"
+                            >Crear Missing</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="table-responsive">
+                      <!-- Projects table -->
+                      <div class="accordion" id="accordionMissing">
+                        <!-- Card for the accordion -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="tabs-icons-text-2"
+              role="tabpanel"
+              aria-labelledby="tabs-icons-text-2-tab"
+            >
+              <div class="row mx-0 mt-3">
+                <div class="col-xl-12 mb-5 mb-xl-0">
+                  <div class="card shadow">
+                    <div class="card-header border-1">
+                      <div class="row align-items-center">
+                        <div class="col">
+                          <h3 class="mb-0">Tus Extras</h3>
+                        </div>
+                        <div class="col text-right">
+                          <a
+                            href="#!"
+                            onclick=""
+                            class="btn btn-sm btn-primary"
+                            data-toggle="modal"
+                            data-target="#extrasModal"
+                            >Crear Extra</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="table-responsive">
+                      <!-- Projects table -->
+
+                      <div class="accordion" id="accordionExtras">
+                        <!-- Card for the accordion -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal missing -->
+      <div
+        class="modal fade"
+        id="missingModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="missingModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="missingModalLabel">Crear Missing</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Formulario de Missing -->
+              <form id="missingForm">
+                <div class="form-group">
+                  <label for="orderNumber"># de Orden</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="orderNumber"
+                    placeholder="Ingresa el número de orden"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="paker">Paker</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="paker"
+                    placeholder="Ingresa el Paker"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="picking">Picking</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="picking"
+                    placeholder="Ingresa el Picking"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="location">Location</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="location"
+                    placeholder="Ingresa la Location"
+                    required
+                  />
+                </div>
+
+                <!-- Item 1 (Obligatorio) -->
+                <div class="form-group" id="item1">
+                  <label>Item #1</label>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="itemID1"
+                        placeholder="Ingresa el Item #1"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-5">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="quantity1"
+                        placeholder="Cantidad del Item #1"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <!-- No eliminamos el primer item -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ítems adicionales (Opcionales) -->
+                <div id="additionalItems">
+                  <!-- Los ítems adicionales serán insertados aquí -->
+                </div>
+
+                <button type="button" id="addItem" class="btn btn-secondary">
+                  Agregar otro item
+                </button>
+                <button
+                  type="button"
+                  id="removeItem"
+                  class="btn btn-danger"
+                  style="display: none"
+                >
+                  Eliminar último item
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="closeModal"
+              >
+                Cerrar
+              </button>
+              <button type="button" class="btn btn-primary" id="submitMissing">
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para Extras -->
+      <div
+        class="modal fade"
+        id="extrasModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="extrasModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="extrasModalLabel">Crear Extra</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Formulario de Extra -->
+              <form id="extrasForm">
+                <div class="form-group">
+                  <label for="orderNumberExtra"># de Orden</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="orderNumberExtra"
+                    placeholder="Ingresa el número de orden"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pakerExtra">Paker</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pakerExtra"
+                    placeholder="Ingresa el Paker"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pickingExtra">Picking</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pickingExtra"
+                    placeholder="Ingresa el Picking"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="locationExtra">Location</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="locationExtra"
+                    placeholder="Ingresa la Location"
+                    required
+                  />
+                </div>
+
+                <!-- Item 1 (Obligatorio) -->
+                <div class="form-group" id="itemExtra1">
+                  <label>Item #1</label>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="itemIDExtra1"
+                        placeholder="Ingresa el Item #1"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-5">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="quantityExtra1"
+                        placeholder="Cantidad del Item #1"
+                        required
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <!-- No eliminamos el primer item -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ítems adicionales (Opcionales) -->
+                <div id="additionalItemsExtra">
+                  <!-- Los ítems adicionales serán insertados aquí -->
+                </div>
+
+                <button
+                  type="button"
+                  id="addItemExtra"
+                  class="btn btn-secondary"
+                >
+                  Agregar otro item
+                </button>
+                <button
+                  type="button"
+                  id="removeItemExtra"
+                  class="btn btn-danger"
+                  style="display: none"
+                >
+                  Eliminar último item
+                </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="closeModalExtra"
+              >
+                Cerrar
+              </button>
+              <button type="button" class="btn btn-primary" id="submitExtra">
+                Guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal para Editar Missing -->
+      <div
+        class="modal fade"
+        id="editMissingModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="editMissingModalLabel"
+        aria-hidden="true"
+        >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editMissingModalLabel">
+                Editar Missing
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Formulario de Missing -->
+              <form id="editMissingForm">
+                <div class="form-group">
+                  <label for="orderNumber"># de Orden</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="orderNumberEditMissig"
+                    placeholder="Ingresa el número de orden"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="paker">Paker</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pakerEditMissig"
+                    placeholder="Ingresa el Paker"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="picking">Picking</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pickingEditMissig"
+                    placeholder="Ingresa el Picking"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="location">Location</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="locationEditMissig"
+                    placeholder="Ingresa la Location"
+                    required
+                  />
+                </div>
+
+                <!-- Item -->
+                <div class="form-group">
+                  <label for="itemID">Item</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="itemIDEditMissig"
+                    placeholder="Ingresa el Item"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Cantidad</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantityEditMissig"
+                    placeholder="Ingresa la cantidad"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="quantity">ID</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="idEditMissig"
+                    required
+                    disabled
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="closeModal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="submitEditMissing"
+              >
+                Guardar cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      <!-- Modal para Editar Extras -->
+      <div
+        class="modal fade"
+        id="editExtrasModal"
+        tabindex="-2"
+        role="dialog"
+        aria-labelledby="editExtrasModalLabel"
+        aria-hidden="true"
+        >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editExtrasModalLabel">
+                Editar Extras
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Formulario de extras -->
+              <form id="editExtrasForm">
+                <div class="form-group">
+                  <label for="orderNumber"># de Orden</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="orderNumberEditExtras"
+                    placeholder="Ingresa el número de orden"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="paker">Paker</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pakerEditExtras"
+                    placeholder="Ingresa el Paker"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="picking">Picking</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pickingEditExtras"
+                    placeholder="Ingresa el Picking"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="location">Location</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="locationEditExtras"
+                    placeholder="Ingresa la Location"
+                    required
+                  />
+                </div>
+
+                <!-- Item -->
+                <div class="form-group">
+                  <label for="itemID">Item</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="itemIDEditExtras"
+                    placeholder="Ingresa el Item"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="quantity">Cantidad</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantityEditExtras"
+                    placeholder="Ingresa la cantidad"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="quantity">ID</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="idEditExtras"
+                    required
+                    disabled
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="closeModalExtra"
+              >
+                Cerrar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="submitEditExtras"
+              >
+                Guardar cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+  <script>
+    var datos_almacenados = JSON.parse(localStorage.getItem('datos_user'))
+    if (
+      datos_almacenados == null ||
+      datos_almacenados == undefined ||
+      datos_almacenados == ''
+    ) {
+      location.href = './examples/login.html'
+    } else {
+      document.querySelector('#user_name').innerHTML +=
+        datos_almacenados.Station
+    }
+  </script>
+
+  <!--   Core   -->
+  <script src="./assets/js/plugins/jquery/dist/jquery.min.js"></script>
+  <script src="./assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!--   Optional JS   -->
+  <!--   Argon JS   -->
+  <script src="./assets/js/argon-dashboard.min.js?v=1.1.2"></script>
+
+  <script>
+    let web = document.querySelector('#web')
+    let cant_missing = document.querySelector('#missing')
+    let cant_extras = document.querySelector('#extras')
+    let tabla = document.querySelector('#tabla')
+
+    // Variable para llevar el control de los items
+    let itemCount = 1
+
+    // Función para agregar un nuevo ítem
+    document.getElementById('addItem').addEventListener('click', function () {
+      itemCount++
+
+      // Crear los nuevos campos de input para el ítem y cantidad
+      const additionalItem = document.createElement('div')
+      additionalItem.classList.add('form-group')
+      additionalItem.id = `item${itemCount}`
+
+      // Agregar el campo de item y cantidad en la misma fila
+      additionalItem.innerHTML = `
+        <label>Item #${itemCount}</label>
+        <div class="row">
+          <div class="col-md-5">
+            <input type="text" class="form-control" id="itemID${itemCount}" placeholder="Ingresa el Item #${itemCount}">
+          </div>
+          <div class="col-md-5">
+            <input type="number" class="form-control" id="quantity${itemCount}" placeholder="Cantidad del Item #${itemCount}">
+          </div>
+          <div class="col-md-2">
+            <!-- No hay botón de eliminar por cada item -->
+          </div>
+        </div>
+      `
+
+      // Insertar el nuevo item en el formulario
+      document.getElementById('additionalItems').appendChild(additionalItem)
+
+      // Mostrar el botón de eliminar, ya que hay al menos un item adicional
+      document.getElementById('removeItem').style.display = 'inline-block'
+    })
+
+    // Función para eliminar el último ítem
+    document
+      .getElementById('removeItem')
+      .addEventListener('click', function () {
+        if (itemCount > 1) {
+          // Si hay más de un ítem
+          // Eliminar el último ítem
+          const lastItem = document.getElementById(`item${itemCount}`)
+          lastItem.remove()
+
+          // Reducir el contador de ítems
+          itemCount--
+
+          // Si no hay más ítems adicionales, ocultamos el botón de eliminar
+          if (itemCount === 1) {
+            document.getElementById('removeItem').style.display = 'none'
+          }
+        }
+      })
+
+    // Función para enviar el formulario
+    document
+      .getElementById('submitMissing')
+      .addEventListener('click', function (e) {
+        e.preventDefault()
+
+        // Obtener los valores de los campos
+        const orderNumber = document.getElementById('orderNumber').value
+        const paker = document.getElementById('paker').value
+        const picking = document.getElementById('picking').value
+        const location = document.getElementById('location').value
+
+        // Verificar que todos los campos obligatorios estén llenos
+        if (
+          orderNumber &&
+          paker &&
+          picking &&
+          location &&
+          document.getElementById('itemID1').value &&
+          document.getElementById('quantity1').value
+        ) {
+          // Crear un objeto para los datos
+          const missingData = {
+            station: datos_almacenados.Station,
+            orderNumber: orderNumber,
+            paker: paker,
+            picking: picking,
+            location: location,
+            items: [] // Array para almacenar los ítems
+          }
+
+          // Obtener los datos de los ítems
+          for (let i = 1; i <= itemCount; i++) {
+            const itemID = document.getElementById(`itemID${i}`).value
+            const quantity = document.getElementById(`quantity${i}`).value
+
+            if (itemID && quantity) {
+              missingData.items.push({
+                itemID: itemID,
+                quantity: quantity
+              })
+            }
+          }
+
+          // Realizar la solicitud POST a Node-RED
+          fetch('https://missingextras.store/nodered/missing', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(missingData)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Respuesta del servidor:', data)
+
+              // Cerrar el modal
+              $('#missingModal').modal('hide')
+
+              // Limpiar el formulario
+              resetForm()
+
+              // Informar al usuario
+              alert('Missing creado correctamente.')
+            })
+            .catch(error => {
+              console.error('Error al enviar los datos:', error)
+              alert('Hubo un error al crear el Missing.')
+            })
+        } else {
+          alert('Por favor, completa todos los campos obligatorios.')
+        }
+      })
+
+    // Función para restablecer el formulario
+    function resetForm() {
+      document.getElementById('missingForm').reset()
+      itemCount = 1 // Resetear el contador de ítems
+
+      // Eliminar cualquier ítem adicional
+      const additionalItems = document.getElementById('additionalItems')
+      additionalItems.innerHTML = '' // Limpiar los ítems adicionales
+
+      // Ocultar el botón de eliminar si no hay ítems adicionales
+      document.getElementById('removeItem').style.display = 'none'
+    }
+
+    // Función para manejar el cierre del modal y limpiar los campos
+    document
+      .getElementById('closeModal')
+      .addEventListener('click', function () {
+        resetForm()
+      })
+
+    let itemExtraCount = 1 // Variable para llevar el control de los ítems
+
+    // Función para agregar un nuevo ítem en el formulario de Extras
+    document
+      .getElementById('addItemExtra')
+      .addEventListener('click', function () {
+        itemExtraCount++
+
+        // Crear los nuevos campos de input para el ítem y cantidad
+        const additionalItem = document.createElement('div')
+        additionalItem.classList.add('form-group')
+        additionalItem.id = `itemExtra${itemExtraCount}`
+
+        // Agregar el campo de item y cantidad en la misma fila
+        additionalItem.innerHTML = `
+        <label>Item #${itemExtraCount}</label>
+        <div class="row">
+          <div class="col-md-5">
+            <input type="text" class="form-control" id="itemIDExtra${itemExtraCount}" placeholder="Ingresa el Item #${itemExtraCount}">
+          </div>
+          <div class="col-md-5">
+            <input type="number" class="form-control" id="quantityExtra${itemExtraCount}" placeholder="Cantidad del Item #${itemExtraCount}">
+          </div>
+          <div class="col-md-2">
+            <!-- No hay botón de eliminar por cada item -->
+          </div>
+        </div>
+      `
+
+        // Insertar el nuevo item en el formulario
+        document
+          .getElementById('additionalItemsExtra')
+          .appendChild(additionalItem)
+
+        // Mostrar el botón de eliminar, ya que hay al menos un item adicional
+        document.getElementById('removeItemExtra').style.display =
+          'inline-block'
+      })
+
+    // Función para eliminar el último ítem en el formulario de Extras
+    document
+      .getElementById('removeItemExtra')
+      .addEventListener('click', function () {
+        if (itemExtraCount > 1) {
+          // Si hay más de un ítem
+          // Eliminar el último ítem
+          const lastItem = document.getElementById(`itemExtra${itemExtraCount}`)
+          lastItem.remove()
+
+          // Reducir el contador de ítems
+          itemExtraCount--
+
+          // Si no hay más ítems adicionales, ocultamos el botón de eliminar
+          if (itemExtraCount === 1) {
+            document.getElementById('removeItemExtra').style.display = 'none'
+          }
+        }
+      })
+
+    // Función para enviar el formulario de Extras
+    document
+      .getElementById('submitExtra')
+      .addEventListener('click', function (e) {
+        e.preventDefault()
+
+        // Obtener los valores de los campos
+        const orderNumberExtra =
+          document.getElementById('orderNumberExtra').value
+        const pakerExtra = document.getElementById('pakerExtra').value
+        const pickingExtra = document.getElementById('pickingExtra').value
+        const locationExtra = document.getElementById('locationExtra').value
+
+        // Verificar que todos los campos obligatorios estén llenos
+        if (
+          orderNumberExtra &&
+          pakerExtra &&
+          pickingExtra &&
+          locationExtra &&
+          document.getElementById('itemIDExtra1').value &&
+          document.getElementById('quantityExtra1').value
+        ) {
+          // Crear un objeto para los datos
+          const extraData = {
+            station: datos_almacenados.Station,
+            orderNumber: orderNumberExtra,
+            paker: pakerExtra,
+            picking: pickingExtra,
+            location: locationExtra,
+            items: [] // Array para almacenar los ítems
+          }
+
+          // Obtener los datos de los ítems
+          for (let i = 1; i <= itemExtraCount; i++) {
+            const itemID = document.getElementById(`itemIDExtra${i}`).value
+            const quantity = document.getElementById(`quantityExtra${i}`).value
+
+            if (itemID && quantity) {
+              extraData.items.push({
+                itemID: itemID,
+                quantity: quantity
+              })
+            }
+          }
+
+          // Realizar la solicitud POST a Node-RED
+          fetch('https://missingextras.store/nodered/extras', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(extraData)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Respuesta del servidor:', data)
+
+              // Cerrar el modal
+              $('#extrasModal').modal('hide')
+
+              // Limpiar el formulario
+              resetExtraForm()
+
+              // Informar al usuario
+              alert('Extra creado correctamente.')
+            })
+            .catch(error => {
+              console.error('Error al enviar los datos:', error)
+              alert('Hubo un error al crear el Extra.')
+            })
+        } else {
+          alert('Por favor, completa todos los campos obligatorios.')
+        }
+      })
+
+    // Función para restablecer el formulario de Extras
+    function resetExtraForm() {
+      document.getElementById('extrasForm').reset()
+      itemExtraCount = 1 // Resetear el contador de ítems
+
+      // Eliminar cualquier ítem adicional
+      const additionalItems = document.getElementById('additionalItemsExtra')
+      additionalItems.innerHTML = '' // Limpiar los ítems adicionales
+
+      // Ocultar el botón de eliminar si no hay ítems adicionales
+      document.getElementById('removeItemExtra').style.display = 'none'
+    }
+
+    // Función para manejar el cierre del modal y limpiar los campos
+    document
+      .getElementById('closeModalExtra')
+      .addEventListener('click', function () {
+        resetExtraForm()
+      })
+
+    function get_missing(statusValue = 'Pendiente') {
+      const url = `https://missingextras.store/nodered/supervisor/get_missing?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
+
+      fetch(url)
+        .then(response => {
+          // Verificar si la respuesta es exitosa
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json() // Parsear la respuesta JSON
+        })
+        .then(data => {
+          console.log('Datos recibidos de Node-RED:', data)
+          arr_missing = data // Asignar los datos recibidos a arr_missing
+          cant_missing.innerHTML = arr_missing.length
+          div_missing(arr_missing)
+        })
+        .catch(error => {
+          console.error('Hubo un problema con la solicitud:', error)
+        })
+    }
+
+    function get_extras(statusValue = 'Pendiente') {
+      const url = `https://missingextras.store/nodered/supervisor/get_extras?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
+
+      fetch(url)
+        .then(response => {
+          // Verificar si la respuesta es exitosa
+          if (!response.ok) {
+            throw new Error('Network response was not ok')
+          }
+          return response.json() // Parsear la respuesta JSON
+        })
+        .then(data => {
+          console.log('Datos recibidos de Node-RED:', data)
+          arr_extras = data // Asignar los datos recibidos a arr_missing
+          cant_extras.innerHTML = arr_extras.length
+          div_extras(arr_extras)
+        })
+        .catch(error => {
+          console.error('Hubo un problema con la solicitud:', error)
+        })
+    }
+
+    function div_extras(data) {
+      const accordionContainer = document.getElementById('accordionExtras')
+      accordionContainer.innerHTML = ''
+      data.forEach((item, index) => {
+        const card = document.createElement('div')
+        card.classList.add('card')
+
+        const headerId = `heading${index}`
+        const collapseId = `collapse${index}`
+        const nodeRedUrl = `https://missingextras.store/nodered/generateTableExtras?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
+
+        // Crear encabezado compacto
+        card.innerHTML = `
+      <div class="card-header d-flex justify-content-between align-items-center" id="${headerId}">
+        <span> <strong>ID:</strong>${item.id}   <strong> Orden#</strong> ${
+          item.order_number
+        }    <strong>sku:</strong> ${item.SKU} <strong>Station:</strong>${item.station}</span>
+        <button class="btn btn-link btn-sm collapsed" type="button" data-toggle="collapse" data-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
+          Ver detalles
+        </button>
+      </div>
+      <div id="${collapseId}" class="collapse" aria-labelledby="${headerId}" data-parent="#accordionExtras">
+        <div class="card-body">
+          <div class="row">
+            <!-- Columna de detalles generales -->
+            <div class="col-md-6">
+              <ul class="list-group">
+                <li class="list-group-item"><strong>SKU:</strong> ${
+                  item.SKU
+                }</li>
+                <li class="list-group-item"><strong>Orden:</strong> ${
+                  item.order_number
+                }</li>
+                <li class="list-group-item"><strong>Paker:</strong> ${
+                  item.paker
+                }</li>
+                <li class="list-group-item"><strong>Picking:</strong> ${
+                  item.picking
+                }</li>
+                <li class="list-group-item"><strong>Ubicación:</strong> ${
+                  item.location
+                }</li>
+              </ul>
+            </div>
+            <!-- Columna de detalles adicionales -->
+            <div class="col-md-6">
+              <ul class="list-group">
+                <li class="list-group-item"><strong>Description:</strong> ${
+                  item.DESCRIPTION
+                }</li>
+                <li class="list-group-item"><strong>Item ID:</strong> ${
+                  item.item_id
+                }</li>
+                <li class="list-group-item"><strong>Cantidad:</strong> ${String(
+                  item.quantity_extras
+                )}</li>
+                <li class="list-group-item"><strong>Estación:</strong> ${
+                  item.station
+                }</li>
+                <li class="list-group-item"><strong>Fecha:</strong> ${new Date(
+                  item.date_reported
+                ).toLocaleString()}</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Botón para abrir Node-RED -->
+          <div class="mt-3 text-right">
+            <button class="btn btn-primary btn-sm" onclick="window.open('${nodeRedUrl}', '_blank')">
+              Generar Reporte
+            </button>
+                       <button class="btn btn-warning btn-sm" onclick='editItemExtras(${JSON.stringify(
+              item
+            )})'>
+              Editar
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="deleteItem(${item.id}, 'extras')">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    `
+
+        accordionContainer.appendChild(card)
+      })
+    }
+
+    function div_missing(data) {
+      const accordionContainer = document.getElementById('accordionMissing')
+      accordionContainer.innerHTML = ''
+      data.forEach((item, index) => {
+        const card = document.createElement('div')
+        card.classList.add('card')
+
+        const headerId = `heading${index}`
+        const collapseId = `collapse${index}`
+        const nodeRedUrl = `https://missingextras.store/nodered/generateTableMissing?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
+        
+        // Crear encabezado compacto
+        card.innerHTML = `
+      <div class="card-header d-flex justify-content-between align-items-center" id="${headerId}">
+        <span> <strong>ID:</strong>${item.id}   <strong> Orden#</strong> ${
+          item.order_number
+        }    <strong>sku:</strong> ${item.SKU}  <strong> Station:</strong>${item.station}</span>
+        <button class="btn btn-link btn-sm collapsed" type="button" data-toggle="collapse" data-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
+          Ver detalles
+        </button>
+      </div>
+      <div id="${collapseId}" class="collapse" aria-labelledby="${headerId}" data-parent="#accordionExtras">
+        <div class="card-body">
+          <div class="row">
+            <!-- Columna de detalles generales -->
+            <div class="col-md-6">
+              <ul class="list-group">
+                <li class="list-group-item"><strong>SKU:</strong> ${
+                  item.SKU
+                }</li>
+                <li class="list-group-item"><strong>Orden:</strong> ${
+                  item.order_number
+                }</li>
+                <li class="list-group-item"><strong>Paker:</strong> ${
+                  item.paker
+                }</li>
+                <li class="list-group-item"><strong>Picking:</strong> ${
+                  item.picking
+                }</li>
+                <li class="list-group-item"><strong>Ubicación:</strong> ${
+                  item.location
+                }</li>
+              </ul>
+            </div>
+            <!-- Columna de detalles adicionales -->
+            <div class="col-md-6">
+              <ul class="list-group">
+                <li class="list-group-item"><strong>Description:</strong> ${
+                  item.DESCRIPTION
+                }</li>
+                <li class="list-group-item"><strong>Item ID:</strong> ${
+                  item.item_id
+                }</li>
+                <li class="list-group-item"><strong>Cantidad:</strong> ${String(
+                  item.quantity_missing
+                )}</li>
+                <li class="list-group-item"><strong>Estación:</strong> ${
+                  item.station
+                }</li>
+                <li class="list-group-item"><strong>Fecha:</strong> ${new Date(
+                  item.date_reported
+                ).toLocaleString()}</li>
+              </ul>
+            </div>
+          </div>
+          <!-- Botones de acción -->
+          <div class="mt-3 text-right">
+            <button class="btn btn-primary btn-sm" onclick="window.open('${nodeRedUrl}', '_blank')">
+              Generar Reporte
+            </button>
+            <button class="btn btn-warning btn-sm" onclick='editItem(${JSON.stringify(
+              item
+            )})'>
+              Editar
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="deleteItem(${item.id}, 'missing')">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    `
+
+        accordionContainer.appendChild(card)
+      })
+    }
+
+    // Función para abrir el modal missing de edición y autocompletar los campos
+    function editItem(item) {
+
+      // Abrir el modal
+      $('#editMissingModal').modal('show')
+
+      // Autocompletar los campos con los datos del item
+      document.getElementById('orderNumberEditMissig').value = item.order_number
+      document.getElementById('pakerEditMissig').value = item.paker
+      document.getElementById('pickingEditMissig').value = item.picking
+      document.getElementById('locationEditMissig').value = item.location
+      document.getElementById('itemIDEditMissig').value = item.item_id
+      document.getElementById('quantityEditMissig').value = item.quantity_missing
+      document.getElementById('idEditMissig').value = item.id
+    }
+
+    // Función para manejar el click en el botón "Guardar cambios missing"
+    document
+      .getElementById('submitEditMissing')
+      .addEventListener('click', function () {
+        // Obtener los datos del formulario
+        const orderNumber = document.getElementById(
+          'orderNumberEditMissig'
+        ).value
+        const paker = document.getElementById('pakerEditMissig').value
+        const picking = document.getElementById('pickingEditMissig').value
+        const location = document.getElementById('locationEditMissig').value
+        const itemID = document.getElementById('itemIDEditMissig').value
+        const quantity = document.getElementById('quantityEditMissig').value
+        const id = document.getElementById('idEditMissig').value
+
+        // Crear un objeto con los datos del formulario
+        const data = {
+          order_number: orderNumber,
+          paker: paker,
+          picking: picking,
+          location: location,
+          item_id: itemID,
+          quantity_missing: quantity,
+          id: id,
+          station: datos_almacenados.Station
+        }
+
+        // Realizar la solicitud Fetch a Node-RED
+        fetch('https://missingextras.store/nodered/supervisor/UpdateMissing', {
+          method: 'POST', // O 'PUT' si es el caso
+          headers: {
+            'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
+          },
+          body: JSON.stringify(data) // Convertimos los datos a JSON
+        })
+          .then(response => response.json()) // Convertimos la respuesta a JSON
+          .then(data => {
+            // Manejar la respuesta del servidor (por ejemplo, mostrar un mensaje de éxito)
+            console.log('Éxito:', data)
+            get_missing(statusValue = 'Pendiente');
+            alert('Los cambios se guardaron correctamente.')
+            $('#editMissingModal').modal('hide') // Cerrar el modal
+          })
+          .catch(error => {
+            // Manejar errores
+            console.error('Error:', error)
+            alert('Ocurrió un error al guardar los cambios.')
+          })
+      })
+
+
+// Función para abrir el modal extras de edición y autocompletar los campos
+function editItemExtras(item) {
+console.log(item);
+
+// Abrir el modal
+$('#editExtrasModal').modal('show')
+
+// Autocompletar los campos con los datos del item
+document.getElementById('orderNumberEditExtras').value = item.order_number
+document.getElementById('pakerEditExtras').value = item.paker
+document.getElementById('pickingEditExtras').value = item.picking
+document.getElementById('locationEditExtras').value = item.location
+document.getElementById('itemIDEditExtras').value = item.item_id
+document.getElementById('quantityEditExtras').value = item.quantity_extras
+document.getElementById('idEditExtras').value = item.id
+}
+
+// Función para manejar el click en el botón "Guardar cambios extras"
+document
+.getElementById('submitEditExtras')
+.addEventListener('click', function () {
+  // Obtener los datos del formulario
+  const orderNumber = document.getElementById(
+    'orderNumberEditExtras'
+  ).value
+  const paker = document.getElementById('pakerEditExtras').value
+  const picking = document.getElementById('pickingEditExtras').value
+  const location = document.getElementById('locationEditExtras').value
+  const itemID = document.getElementById('itemIDEditExtras').value
+  const quantity = document.getElementById('quantityEditExtras').value
+  const id = document.getElementById('idEditExtras').value
+
+  // Crear un objeto con los datos del formulario
+  const data = {
+    order_number: orderNumber,
+    paker: paker,
+    picking: picking,
+    location: location,
+    item_id: itemID,
+    quantity_extras: quantity,
+    id: id,
+    station: datos_almacenados.Station
+  }
+
+  // Realizar la solicitud Fetch a Node-RED
+  fetch('https://missingextras.store/nodered/supervisor/UpdateExtras', {
+    method: 'POST', // O 'PUT' si es el caso
+    headers: {
+      'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
+    },
+    body: JSON.stringify(data) // Convertimos los datos a JSON
+  })
+    .then(response => response.json()) // Convertimos la respuesta a JSON
+    .then(data => {
+      // Manejar la respuesta del servidor (por ejemplo, mostrar un mensaje de éxito)
+      console.log('Éxito:', data)
+      get_extras(statusValue = 'Pendiente');
+      alert('Los cambios se guardaron correctamente.')
+      $('#editExtrasModal').modal('hide') // Cerrar el modal
+    })
+    .catch(error => {
+      // Manejar errores
+      console.error('Error:', error)
+      alert('Ocurrió un error al guardar los cambios.')
+    })
+})
+
+
+
+
+
+    // Función para eliminar el ítem (como ejemplo, puede ser implementada según sea necesario)
+    function deleteItem(id,tabla) {
+      console.log(id);
+      
+      const confirmation = confirm(
+        `¿Estás seguro de que deseas eliminar el elemento con ID: ${id}?`
+      )
+      if (confirmation) {
+        // Crear un objeto con los datos del formulario
+        const data = {
+          id: id,
+          tabla: tabla
+        }
+
+        // Realizar la solicitud Fetch a Node-RED
+        fetch('https://missingextras.store/nodered/Delete', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
+          },
+          body: JSON.stringify(data) // Convertimos los datos a JSON
+        })
+          .then(response => response.json()) // Convertimos la respuesta a JSON
+          .then(data => {
+            // Manejar la respuesta del servidor (por ejemplo, mostrar un mensaje de éxito)
+            console.log('Éxito:', data)
+            get_missing(statusValue = 'Pendiente');
+            get_extras(statusValue = 'Pendiente');
+            alert(`Elemento con ID: ${id} eliminado`)
+            $('#editMissingModal').modal('hide') // Cerrar el modal
+          })
+          .catch(error => {
+            // Manejar errores
+            console.error('Error:', error)
+            alert('Ocurrió un error al guardar los cambios.')
+          })
+
+        
+      }
+    }
+  </script>
+</html>

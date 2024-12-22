@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Short login
+  </title>
+  <!-- Favicon -->
+  <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="../assets/fonts/css.css" rel="stylesheet">
+  <!-- Icons -->
+  <link href="../assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+  <link href="../assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="../assets/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+</head>
+
+<body class="bg-default">
+  <div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+      <div class="container px-4">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../assets/img/brand/white.png" />
+        </a>
+
+
+      </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-6">
+              <h1 class="text-white">Binvenidos!</h1>
+              <p class="text-lead text-light">Introduce la estación</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+
+
+
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary shadow border-0">
+
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Ingresa tu numero de estacion para continuar</small>
+              </div>
+              <form id="formulario" autocomplete="off" role="form">
+
+
+
+              <div class="col-md-4">
+                <div class="modal fade" id="modal-notification" tabindex="-" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+                  <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                    <div id="modal_color" class="modal-content bg-gradient-danger">
+
+
+
+                        <div class="modal-body">
+
+                            <div class="py-3 text-center">
+                                <i class="ni ni-bell-55 ni-3x"></i>
+                                <h4 id="modal_titulo" class="heading mt-4">Datos erroneos</h4>
+                                <p id="modal_mensage">compruebe que introdujo un valor valido de stacion </p>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button onclick="continuar()" id="modal_boton" type="button" class="btn btn-white ml-auto" data-dismiss="modal">Cerrar</button>
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+
+                <div class="form-group mb-3">
+
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                    </div>
+                    <input class="form-control" name="Station"  required placeholder="Station" type="text">
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" data-toggle="modal" data-target="#modal-notification" class="btn btn-primary my-4">Continuar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  const formularioUI = document.getElementById('formulario');
+  const modal_titulo = document.getElementById('modal_titulo');
+  const modal_mensage = document.getElementById('modal_mensage');
+  const modal_color = document.getElementById('modal_color');
+  const modal_boton = document.getElementById('modal_boton');
+
+
+  window.onload = function() {
+    formularioUI.addEventListener('submit', (e) => {
+        e.preventDefault();
+        var datos_formulario = new FormData(formularioUI);
+        formularioUI.reset();
+
+        var env_get = datos_formulario.get('Station');
+        console.log(env_get);
+
+        // Convierte el valor a número
+        var stationValue = parseFloat(env_get); // Usamos parseFloat para permitir decimales
+
+        // Verifica si el valor es un número finito
+        if (Number.isFinite(stationValue) && stationValue !== undefined && stationValue !== '') {
+            console.log('La variable es un número finito');
+            let datos_user = {
+                Station: stationValue,
+            };
+            localStorage.setItem('datos_user', JSON.stringify(datos_user));
+            // Aquí podrías hacer algo después de que el número sea válido, como redirigir o mostrar un mensaje.
+            modal_titulo.innerHTML = "¡Bienvenido!";
+            modal_mensage.innerHTML = "La estación se ha guardado correctamente.";
+            modal_boton.innerHTML = 'Continuar';
+            modal_color.classList.remove("bg-gradient-danger");
+            modal_color.classList.add('bg-gradient-success');
+            $('#modal-notification').modal('show');
+        
+          } else {
+            console.log('La variable no es un número válido');
+            modal_titulo.innerHTML = "Datos erróneos";
+            modal_mensage.innerHTML = "Por favor, introduce un valor válido para la estación.";
+            modal_color.classList.remove("bg-gradient-success");
+            modal_color.classList.add('bg-gradient-danger');
+            $('#modal-notification').modal('show');
+        }
+    });
+}
+
+
+function continuar() {
+ let datos = JSON.parse(localStorage.getItem('datos_user'));
+ if (datos.Station!=null & datos.Station!= undefined & datos.Station!= '') {
+  location.href='../index.html'
+ }
+}
+
+</script>
+
+</body>
+<!--   Core   -->
+<script src="../assets/js/plugins/jquery/dist/jquery.min.js"></script>
+<script src="../assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
+<!--   Argon JS   -->
+<script src="../assets/js/argon-dashboard.min.js?v=1.1.2"></script>
+
+</html>
