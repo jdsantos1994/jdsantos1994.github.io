@@ -1037,7 +1037,7 @@
           }
 
           // Realizar la solicitud POST a Node-RED
-          fetch('http://108.175.12.143:1880/missing', {
+          fetch('https://missingextras.store/nodered/missing', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -1191,7 +1191,7 @@
           }
 
           // Realizar la solicitud POST a Node-RED
-          fetch('http://108.175.12.143:1880/extras', {
+          fetch('https://missingextras.store/nodered/extras', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -1241,7 +1241,7 @@
       })
 
     function get_missing(statusValue = 'Pendiente') {
-      const url = `http://108.175.12.143:1880/get_missing?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
+      const url = `https://missingextras.store/nodered/get_missing?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
 
       fetch(url)
         .then(response => {
@@ -1263,7 +1263,7 @@
     }
 
     function get_extras(statusValue = 'Pendiente') {
-      const url = `http://108.175.12.143:1880/get_extras?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
+      const url = `https://missingextras.store/nodered/get_extras?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
 
       fetch(url)
         .then(response => {
@@ -1293,7 +1293,7 @@
 
         const headerId = `heading${index}`
         const collapseId = `collapse${index}`
-        const nodeRedUrl = `http://108.175.12.143:1880/generateTableExtras?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
+        const nodeRedUrl = `https://missingextras.store/nodered/generateTableExtras?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
 
         // Crear encabezado compacto
         card.innerHTML = `
@@ -1380,7 +1380,7 @@
 
         const headerId = `heading${index}`
         const collapseId = `collapse${index}`
-        const nodeRedUrl = `http://108.175.12.143:1880/generateTableMissing?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
+        const nodeRedUrl = `https://missingextras.store/nodered/generateTableMissing?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
      
         // Crear encabezado compacto
         card.innerHTML = `
@@ -1502,7 +1502,7 @@
         }
 
         // Realizar la solicitud Fetch a Node-RED
-        fetch('http://108.175.12.143:1880/UpdateMissing', {
+        fetch('https://missingextras.store/nodered/UpdateMissing', {
           method: 'POST', // O 'PUT' si es el caso
           headers: {
             'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
@@ -1570,7 +1570,7 @@ document
   }
 
   // Realizar la solicitud Fetch a Node-RED
-  fetch('http://108.175.12.143:1880/UpdateExtras', {
+  fetch('https://missingextras.store/nodered/UpdateExtras', {
     method: 'POST', // O 'PUT' si es el caso
     headers: {
       'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
@@ -1611,7 +1611,7 @@ document
         }
 
         // Realizar la solicitud Fetch a Node-RED
-        fetch('http://108.175.12.143:1880/Delete', {
+        fetch('https://missingextras.store/nodered/Delete', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
