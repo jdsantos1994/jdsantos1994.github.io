@@ -249,7 +249,7 @@
 
   <!--   Ordena Tablas   -->
   <script>
-   const apiUrl = 'http://localhost:1880/get-data'; // Cambia según tu configuración
+   const apiUrl = 'https://missingextras.store/nodered/get-data'; // Cambia según tu configuración
 
 let currentPage = 1;
 let pageSize = 50;
@@ -344,7 +344,7 @@ const searchButton = document.getElementById('btnBuscar');
 async function fetchSearchResults() {
   const query = searchInput.value.trim(); // Captura el valor del input y elimina espacios
   // URL del servidor Node-RED
-  const apiUrl = 'http://localhost:1880/search'; // Ajusta la URL según tu configuración
+  const apiUrl = 'https://missingextras.store/nodered/search'; // Ajusta la URL según tu configuración
 
   if (!query) {
     alert("Por favor, ingresa un término de búsqueda.");
