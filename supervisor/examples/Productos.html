@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Productos
+    All Products
   </title>
   <!-- Favicon -->
   <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png">
@@ -40,7 +40,7 @@
               </span>
             </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+          <!--<div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
@@ -53,7 +53,7 @@
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>
-          </div>
+          </div> -->
         </li>
       </ul>
       <!-- Collapse -->
@@ -86,7 +86,7 @@
 
           <li class="nav-item active">
             <a class="nav-link active " href="./Productos.html">
-              <i class="fa fa-link  text-info"></i> Productos
+              <i class="fa fa-link  text-info"></i> All Products
             </a>
           </li>
 
@@ -110,7 +110,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Productos.html">Productos</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./Productos.html">All Products</a>
         <!-- Form -->
 
         <!-- User -->
@@ -122,11 +122,11 @@
                   <img alt="Image placeholder" src="../assets/img/theme/team-4-800x800.jpg">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span id="user_name" class="mb-0 text-sm  font-weight-bold">Station </span>
+                  <span id="user_name" class="mb-0 text-sm  font-weight-bold">Supervisor </span>
                 </div>
               </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+            <!--  <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
@@ -137,7 +137,7 @@
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
-            </div>
+            </div> -->
           </li>
         </ul>
       </div>
@@ -169,7 +169,7 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header bg-transparent">
-              <h3 class="mb-0">Productos</h3>
+              <h3 class="mb-0">All Products</h3>
             </div>
              <!-- Form buscar-->
 
@@ -235,8 +235,7 @@
     ) {
       location.href = './examples/login.html'
     } else {
-      document.querySelector('#user_name').innerHTML +=
-        datos_almacenados.Station
+
     }
   </script>
   <script src="../assets/js/plugins/jquery/dist/jquery.min.js"></script>
@@ -249,7 +248,7 @@
 
   <!--   Ordena Tablas   -->
   <script>
-   const apiUrl = 'https://missingextras.store/nodered/get-data'; // Cambia según tu configuración
+   const apiUrl = 'http://108.175.12.143:1880/get-data'; // Cambia según tu configuración
 
 let currentPage = 1;
 let pageSize = 50;
@@ -344,7 +343,7 @@ const searchButton = document.getElementById('btnBuscar');
 async function fetchSearchResults() {
   const query = searchInput.value.trim(); // Captura el valor del input y elimina espacios
   // URL del servidor Node-RED
-  const apiUrl = 'https://missingextras.store/nodered/search'; // Ajusta la URL según tu configuración
+  const apiUrl = 'http://108.175.12.143:1880/search'; // Ajusta la URL según tu configuración
 
   if (!query) {
     alert("Por favor, ingresa un término de búsqueda.");
