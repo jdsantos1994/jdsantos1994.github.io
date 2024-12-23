@@ -162,7 +162,7 @@
 
             <li class="nav-item ">
               <a class="nav-link  " href="./examples/Productos.html">
-                <i class="fa fa-link  text-info"></i> All Products
+                <i class="fa fa-link  text-info"></i> Productos
               </a>
             </li>
             <li class="nav-item ">
@@ -211,12 +211,12 @@
                   </span>
                   <div class="media-body ml-2 d-none d-lg-block">
                     <span id="user_name" class="mb-0 text-sm font-weight-bold"
-                      >Supervisor</span
+                      >Station</span
                     >
                   </div>
                 </div>
               </a>
-             <!-- <div
+              <div
                 class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
               >
                 <div class="dropdown-header noti-title">
@@ -228,7 +228,7 @@
                   <i class="ni ni-user-run"></i>
                   <span>Logout</span>
                 </a>
-              </div> -->
+              </div>
             </li>
           </ul>
         </div>
@@ -341,7 +341,7 @@
                     <div class="card-header border-1">
                       <div class="row align-items-center">
                         <div class="col">
-                          <h3 class="mb-0">All Missing</h3>
+                          <h3 class="mb-0">Tus missing</h3>
                         </div>
                         <div class="col text-right">
                           <a
@@ -350,7 +350,7 @@
                             class="btn btn-sm btn-primary"
                             data-toggle="modal"
                             data-target="#missingModal"
-                            >New Missing</a
+                            >Crear Missing</a
                           >
                         </div>
                       </div>
@@ -377,7 +377,7 @@
                     <div class="card-header border-1">
                       <div class="row align-items-center">
                         <div class="col">
-                          <h3 class="mb-0">All Extras</h3>
+                          <h3 class="mb-0">Tus Extras</h3>
                         </div>
                         <div class="col text-right">
                           <a
@@ -386,7 +386,7 @@
                             class="btn btn-sm btn-primary"
                             data-toggle="modal"
                             data-target="#extrasModal"
-                            >New Extra</a
+                            >Crear Extra</a
                           >
                         </div>
                       </div>
@@ -922,9 +922,10 @@
       datos_almacenados == undefined ||
       datos_almacenados == ''
     ) {
-     
+      location.href = './examples/login.html'
     } else {
-   
+      document.querySelector('#user_name').innerHTML +=
+        datos_almacenados.Station
     }
   </script>
 
@@ -1041,7 +1042,7 @@
           }
 
           // Realizar la solicitud POST a Node-RED
-          fetch('http://108.175.12.143:1880/supervisor/missing', {
+          fetch('https://missingextras.store/nodered/supervisor/missing', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -1060,7 +1061,6 @@
 
               // Informar al usuario
               alert('Missing creado correctamente.')
-              get_missing(statusValue = 'Pendiente')
             })
             .catch(error => {
               console.error('Error al enviar los datos:', error)
@@ -1196,7 +1196,7 @@
           }
 
           // Realizar la solicitud POST a Node-RED
-          fetch('http://108.175.12.143:1880/supervisor/extras', {
+          fetch('https://missingextras.store/nodered/supervisor/extras', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -1215,7 +1215,6 @@
 
               // Informar al usuario
               alert('Extra creado correctamente.')
-              get_extras(statusValue = 'Pendiente')
             })
             .catch(error => {
               console.error('Error al enviar los datos:', error)
@@ -1247,7 +1246,7 @@
       })
 
     function get_missing(statusValue = 'Pendiente') {
-      const url = `http://108.175.12.143:1880/supervisor/get_missing?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
+      const url = `https://missingextras.store/nodered/supervisor/get_missing?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
 
       fetch(url)
         .then(response => {
@@ -1269,7 +1268,7 @@
     }
 
     function get_extras(statusValue = 'Pendiente') {
-      const url = `http://108.175.12.143:1880/supervisor/get_extras?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
+      const url = `https://missingextras.store/nodered/supervisor/get_extras?station=${datos_almacenados.Station}&status=${statusValue}` // Cambia la URL y el endpoint
 
       fetch(url)
         .then(response => {
@@ -1299,7 +1298,7 @@
 
         const headerId = `heading${index}`
         const collapseId = `collapse${index}`
-        const nodeRedUrl = `http://108.175.12.143:1880/generateTableExtras?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
+        const nodeRedUrl = `https://missingextras.store/nodered/generateTableExtras?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
 
         // Crear encabezado compacto
         card.innerHTML = `
@@ -1386,7 +1385,7 @@
 
         const headerId = `heading${index}`
         const collapseId = `collapse${index}`
-        const nodeRedUrl = `http://108.175.12.143:1880/generateTableMissing?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
+        const nodeRedUrl = `https://missingextras.store/nodered/generateTableMissing?id=${item.id}` // Reemplaza con la URL real de tu servidor Node-RED
         
         // Crear encabezado compacto
         card.innerHTML = `
@@ -1508,7 +1507,7 @@
         }
 
         // Realizar la solicitud Fetch a Node-RED
-        fetch('http://108.175.12.143:1880/supervisor/UpdateMissing', {
+        fetch('https://missingextras.store/nodered/supervisor/UpdateMissing', {
           method: 'POST', // O 'PUT' si es el caso
           headers: {
             'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
@@ -1576,7 +1575,7 @@ document
   }
 
   // Realizar la solicitud Fetch a Node-RED
-  fetch('http://108.175.12.143:1880/supervisor/UpdateExtras', {
+  fetch('https://missingextras.store/nodered/supervisor/UpdateExtras', {
     method: 'POST', // O 'PUT' si es el caso
     headers: {
       'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
@@ -1617,7 +1616,7 @@ document
         }
 
         // Realizar la solicitud Fetch a Node-RED
-        fetch('http://108.175.12.143:1880/Delete', {
+        fetch('https://missingextras.store/nodered/Delete', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json' // Indicamos que estamos enviando JSON
