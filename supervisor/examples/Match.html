@@ -79,7 +79,7 @@
               </span>
             </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+          <!--<div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
@@ -89,7 +89,7 @@
               <i class="ni ni-user-run"></i>
               <span>Logout</span>
             </a>
-          </div>
+          </div> -->
         </li>
       </ul>
       <!-- Collapse -->
@@ -131,7 +131,7 @@
 
           <li class="nav-item ">
             <a class="nav-link  " href="./Productos.html">
-              <i class="fa fa-link  text-info"></i> Productos
+              <i class="fa fa-link  text-info"></i> All Products
             </a>
           </li>
 
@@ -167,11 +167,11 @@
                   <img alt="Image placeholder" src="../assets/img/theme/team-4-800x800.jpg">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span id="user_name" class="mb-0 text-sm  font-weight-bold">user</span>
+                  <span id="user_name" class="mb-0 text-sm  font-weight-bold">Supervisor</span>
                 </div>
               </div>
             </a>
-            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+           <!-- <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
@@ -181,7 +181,7 @@
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
-            </div>
+            </div> -->
           </li>
         </ul>
       </div>
@@ -230,7 +230,7 @@
     if (datos_almacenados==null || datos_almacenados == undefined || datos_almacenados == '') {
      
     }else{
-      document.querySelector('#user_name').innerHTML=datos_almacenados.username;
+
     }
 
   </script>
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Función para manejar la solicitud fetch al presionar "Actualizar"
 async function fetchUpdate() {
   // URL del servidor Node-RED
-  const apiUrl = 'https://missingextras.store/nodered/match'; // Ajusta la URL según tu configuración
+  const apiUrl = 'http://108.175.12.143:1880/match'; // Ajusta la URL según tu configuración
 
   try {
     const response = await fetch(apiUrl);
@@ -333,7 +333,7 @@ function renderCards(data) {
 
 // Función para manejar el clic en "Mark as Completed"
 async function markAsCompleted(extra_id, missing_id) {
-  const apiUrl = 'https://missingextras.store/nodered/complete'; // URL del servidor Node-RED
+  const apiUrl = 'http://108.175.12.143:1880/complete'; // URL del servidor Node-RED
  console.log(extra_id, missing_id);
  
   try {
